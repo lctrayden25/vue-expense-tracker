@@ -4,8 +4,7 @@
 </template>
 
 <script lang="ts" setup>
-import { watchEffect } from 'vue';
-
+import { toRefs, watchEffect } from 'vue'
 const props = defineProps({
   total: {
     type: Number,
@@ -13,9 +12,10 @@ const props = defineProps({
   }
 })
 
-const { total } = props
+const { total } = toRefs(props)
 
 watchEffect(() => {
-  console.log(total)
+  console.log(total.value)
 })
+
 </script>

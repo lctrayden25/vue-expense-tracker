@@ -7,7 +7,7 @@
         <input
           type="text"
           id="text"
-          v-model="formData.expense"
+          v-model="expense"
           placeholder="Enter text..."
           class="px-4 py-1"
         />
@@ -17,7 +17,7 @@
         <input
           type="number"
           id="amount"
-          v-model="formData.amount"
+          v-model="amount"
           placeholder="Enter amount..."
           class="px-4 py-1"
         />
@@ -28,26 +28,27 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { ref } from 'vue'
 
 export type FormDataType = {
   expense: string
-  amount: number
+  amount: number | null
 }
 
-const formData = reactive({ expense: '', amount: '' })
+const expense = ref('')
+const amount = ref(null)
+
 const emit = defineEmits(['transactionSubmitted'])
 
 const onFormSubmit = () => {
-  const { expense, amount } = formData
   const transactionData = {
-    expense,
-    amount: amount
+    expense: expense.value,
+    amount: amount.value
   }
 
   emit('transactionSubmitted', transactionData)
 
-  formData.amount = ''
-  formData.expense = ''
+  amount.value = null
+  expense.value = ''
 }
 </script>

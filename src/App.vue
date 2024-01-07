@@ -9,14 +9,18 @@
         :onTransactionDelete="handleTransactionDelete"
       />
       <AddTransaction @transactionSubmitted="handleTransactionSubmit" />
+      <ul>
+        <li
+          v-for="transaction in transactions"
+          v-bind:key="transaction.id"
+          @click="handleTransactionDelete(transaction.id)"
+        >
+          {{ transaction.expense }}
+        </li>
+      </ul>
+      <div>total: {{ total }} income: {{ income }} expense: {{ expense }}</div>
     </div>
-    <!-- <ul>
-      <li v-for="transaction in transactions" v-bind:key="transaction.id" @click="handleTransactionDelete(transaction.id)">{{ transaction.expense }}</li>
-    </ul>
-    <div>
-      {{ total }}
-    </div> -->
-  </div>
+    </div>
   <!-- <RouterView></RouterView> -->
 </template>
 
@@ -75,11 +79,12 @@ const expense = computed(() => {
 const handleTransactionSubmit = (transactionData: FormDataType) => {
   transactions.value?.push({
     id: generateRandomId(),
-    ...transactionData
+    expense: transactionData.expense,
+    amount: transactionData.amount || 0
   })
 }
 
-const handleTransactionDelete = (id: any) => {
+const handleTransactionDelete = (id: number) => {
   transactions.value = transactions.value?.filter((transaction) => transaction?.id !== id)
 }
 

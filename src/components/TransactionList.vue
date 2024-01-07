@@ -15,7 +15,11 @@
         </button>
         <div
           class="bg-white p-2 shadow-md flex items-center justify-between w-full border-r-4"
-          :class="transaction.amount < 0 ? 'border-r-red-500' : 'border-r-green-500'"
+          :class="
+            transaction.amount !== null && transaction?.amount < 0
+              ? 'border-r-red-500'
+              : 'border-r-green-500'
+          "
         >
           {{ transaction.expense }} <span>{{ transaction.amount }}</span>
         </div>
@@ -27,6 +31,7 @@
 <script lang="ts"></script>
 
 <script lang="ts" setup>
+import { toRefs } from 'vue'
 import type { PropType } from 'vue'
 
 export type TransactionType = {
@@ -42,13 +47,11 @@ const props = defineProps({
   }
 })
 
-const { transactions } = props
+const { transactions } = toRefs(props)
 
 const emit = defineEmits(['transactionDelete'])
 
 const onDelete = (id: any) => {
   emit('transactionDelete', id)
 }
-
-console.log(transactions)
 </script>
