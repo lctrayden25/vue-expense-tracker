@@ -21,7 +21,7 @@
               : 'border-r-green-500'
           "
         >
-          {{ transaction.expense }} <span>{{ transaction.amount }}</span>
+          {{ transaction.expense }} <span>${{ transaction.amount }}</span>
         </div>
       </li>
     </ul>

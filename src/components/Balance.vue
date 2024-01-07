@@ -1,6 +1,6 @@
 <template>
   <h4>Your Balance</h4>
-  <h1 id="balance" class="font-bold text-2xl">{{ total }}</h1>
+  <h1 id="balance" class="font-bold text-2xl">${{ total }}</h1>
 </template>
 
 <script lang="ts" setup>

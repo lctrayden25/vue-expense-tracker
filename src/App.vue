@@ -34,9 +34,9 @@ import { computed, onMounted, ref } from 'vue'
 // }
 
 let transactions = ref([
-  { id: 1, expense: 'Flower', amount: 169.9 },
-  { id: 2, expense: 'Flower', amount: -29.9 },
-  { id: 3, expense: 'Flower', amount: -39.9 }
+  // { id: 1, expense: 'Flower', amount: 169.9 },
+  // { id: 2, expense: 'Flower', amount: -29.9 },
+  // { id: 3, expense: 'Flower', amount: -39.9 }
 ] as TransactionType)
 
 const total = computed(() => {
@@ -71,6 +71,8 @@ const handleTransactionSubmit = (transactionData: FormDataType) => {
     expense: transactionData.expense,
     amount: transactionData.amount || 0
   })
+
+  localStorage.setItem('transaction', JSON.stringify(transactions.value))
 }
 
 const handleTransactionDelete = (id: number) => {
@@ -82,7 +84,10 @@ const generateRandomId = () => {
 }
 
 onMounted(() => {
-  // const transactionStorage = localStorage.getItem("transaction");
+  const transactionStorage = localStorage.getItem('transaction')
 
+  if (transactionStorage) {
+    transactions.value = JSON.parse(transactionStorage)
+  }
 })
 </script>
