@@ -48,7 +48,7 @@ const emit = defineEmits(['transactionSubmitted'])
 
 const onFormSubmit = () => {
   if (!expense.value || !amount.value) {
-    alert('reuqired')
+    toast.error("Please input expense and amount.")
     return
   }
 
