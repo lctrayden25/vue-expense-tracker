@@ -10,6 +10,7 @@
           v-model="expense"
           placeholder="Enter text..."
           class="px-4 py-1"
+          autocomplete="off"
         />
       </div>
       <div class="flex flex-col gap-2">
@@ -20,6 +21,7 @@
           v-model="amount"
           placeholder="Enter amount..."
           class="px-4 py-1"
+          autocomplete="off"
         />
       </div>
       <button class="w-full bg-black p-2 text-white">Add transction</button>
@@ -29,24 +31,34 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useToast } from 'vue-toast-notification'
 
 export type FormDataType = {
   expense: string
   amount: number | null
 }
 
+const toast = useToast({
+  position: 'top'
+})
 const expense = ref('')
 const amount = ref(null)
 
 const emit = defineEmits(['transactionSubmitted'])
 
 const onFormSubmit = () => {
+  if (!expense.value || !amount.value) {
+    alert('reuqired')
+    return
+  }
+
   const transactionData = {
     expense: expense.value,
     amount: amount.value
   }
 
   emit('transactionSubmitted', transactionData)
+  toast.success('Add transaction successfully.')
 
   amount.value = null
   expense.value = ''

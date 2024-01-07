@@ -9,18 +9,8 @@
         :onTransactionDelete="handleTransactionDelete"
       />
       <AddTransaction @transactionSubmitted="handleTransactionSubmit" />
-      <ul>
-        <li
-          v-for="transaction in transactions"
-          v-bind:key="transaction.id"
-          @click="handleTransactionDelete(transaction.id)"
-        >
-          {{ transaction.expense }}
-        </li>
-      </ul>
-      <div>total: {{ total }} income: {{ income }} expense: {{ expense }}</div>
     </div>
-    </div>
+  </div>
   <!-- <RouterView></RouterView> -->
 </template>
 
@@ -31,8 +21,7 @@ import Balance from './components/Balance.vue'
 import IncomeExpense from './components/IncomeExpense.vue'
 import TransactionList, { type TransactionType } from './components/TransactionList.vue'
 import AddTransaction, { type FormDataType } from './components/AddTransaction.vue'
-
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 // export default {
 //   components: {
@@ -91,4 +80,9 @@ const handleTransactionDelete = (id: number) => {
 const generateRandomId = () => {
   return Math.floor(Math.random() * 1000000)
 }
+
+onMounted(() => {
+  // const transactionStorage = localStorage.getItem("transaction");
+
+})
 </script>

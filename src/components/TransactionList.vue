@@ -33,12 +33,18 @@
 <script lang="ts" setup>
 import { toRefs } from 'vue'
 import type { PropType } from 'vue'
+import { useToast } from 'vue-toast-notification'
+
 
 export type TransactionType = {
   id: number
   expense: string
   amount: number
 }[]
+
+const toast = useToast({
+  position: 'top'
+})
 
 const props = defineProps({
   transactions: {
@@ -52,6 +58,7 @@ const { transactions } = toRefs(props)
 const emit = defineEmits(['transactionDelete'])
 
 const onDelete = (id: any) => {
+  toast.success("Delete transaction successfully.")
   emit('transactionDelete', id)
 }
 </script>
